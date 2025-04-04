@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>周期表フラッシュカード</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(18, 1fr);
+            gap: 3px;
+            max-width: 95vw;
+            margin: auto;
+        }
+        .card {
+            width: 80px;
+            height: 100px;
+            border: 1px solid black;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            position: relative;
+            font-size: 14px;
+        }
+        .answer {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        rt {
+            font-size: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>周期表フラッシュカード</h1>
+    <div class="container" id="card-container"></div>
+    <script>
+        const elements = [
+            { number: 1, symbol: "H", name: "水素", furigana: "すいそ", english: "Hydrogen", group: 1, period: 1 },
+            { number: 2, symbol: "He", name: "ヘリウム", furigana: "へりうむ", english: "Helium", group: 18, period: 1 },
+            { number: 3, symbol: "Li", name: "リチウム", furigana: "りちうむ", english: "Lithium", group: 1, period: 2 },
+            { number: 4, symbol: "Be", name: "ベリリウム", furigana: "べりりうむ", english: "Beryllium", group: 2, period: 2 },
+            { number: 5, symbol: "B", name: "ホウ素", furigana: "ほうそ", english: "Boron", group: 13, period: 2 },
+            { number: 6, symbol: "C", name: "炭素", furigana: "たんそ", english: "Carbon", group: 14, period: 2 },
+            { number: 7, symbol: "N", name: "窒素", furigana: "ちっそ", english: "Nitrogen", group: 15, period: 2 },
+            { number: 8, symbol: "O", name: "酸素", furigana: "さんそ", english: "Oxygen", group: 16, period: 2 },
+            { number: 9, symbol: "F", name: "フッ素", furigana: "ふっそ", english: "Fluorine", group: 17, period: 2 },
+            { number: 10, symbol: "Ne", name: "ネオン", furigana: "ねおん", english: "Neon", group: 18, period: 2 },
+            { number: 11, symbol: "Na", name: "ナトリウム", furigana: "なとりうむ", english: "Sodium", group: 1, period: 3 },
+            { number: 12, symbol: "Mg", name: "マグネシウム", furigana: "まぐねしうむ", english: "Magnesium", group: 2, period: 3 },
+            { number: 13, symbol: "Al", name: "アルミニウム", furigana: "あるみにうむ", english: "Aluminium", group: 13, period: 3 },
+            { number: 14, symbol: "Si", name: "ケイ素", furigana: "けいそ", english: "Silicon", group: 14, period: 3 },
+            { number: 15, symbol: "P", name: "リン", furigana: "りん", english: "Phosphorus", group: 15, period: 3 },
+            { number: 16, symbol: "S", name: "硫黄", furigana: "いおう", english: "Sulfur", group: 16, period: 3 },
+            { number: 17, symbol: "Cl", name: "塩素", furigana: "えんそ", english: "Chlorine", group: 17, period: 3 },
+            { number: 18, symbol: "Ar", name: "アルゴン", furigana: "あるごん", english: "Argon", group: 18, period: 3 },
+            { number: 19, symbol: "K", name: "カリウム", furigana: "かりうむ", english: "Potassium", group: 1, period: 4 },
+            { number: 20, symbol: "Ca", name: "カルシウム", furigana: "かるしうむ", english: "Calcium", group: 2, period: 4 }
+        ];
+
+        const container = document.getElementById("card-container");
+
+        elements.forEach(el => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.style.gridColumn = el.group;
+            card.style.gridRow = el.period;
+            card.innerHTML = `<div class='question'>元素番号 ${el.number}</div>
+                              <div class='answer' style='display: none;'><ruby>${el.name}<rt>${el.furigana}</rt></ruby> (${el.symbol})<br>${el.english}</div>`;
+            card.addEventListener("click", () => {
+                const answer = card.querySelector(".answer");
+                answer.style.display = "flex";
+                setTimeout(() => {
+                    answer.style.display = "none";
+                }, 5000);
+            });
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>
